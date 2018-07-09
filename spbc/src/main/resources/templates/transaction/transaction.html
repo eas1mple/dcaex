@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+<#include '/copyright/common/header.html'>
+<script type="text/javascript">
+	$(function(){
+		$("#button").click(function(){
+			var searchValue=$("#searchValue").val();
+			location = "datasource/selectBySingle?searchValue="+searchValue;
+		});
+	
+	});
+</script>
+</head>
+<body>
+	<div>
+		<nav class="navbar navbar-default" role="navigation">
+		  <div class="navbar-header" style="margin-right:420px">
+		    <a class="navbar-brand" href="#">DCAex</a>
+		  </div>
+		  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		    <form class="navbar-form navbar-left" role="search" id="dataForm">
+		      <div class="form-group">
+		        <input type="text" style="width:310px" class="form-control" placeholder="Search by Address/Txhash/Block/Token/Ens" id="searchValue" name="searchValue">
+		      </div>
+		      <button type="submit" class="btn btn-default" id="button">查询</button>
+		    </form>
+		  </div>
+		</nav>
+	</div>
+	
+	<div style="background-color:#fdfdfd;height:80px">
+		<h1 style="margin-left:110px;line-height: 80px"><font color="#777777">Transaction</font> <font color="#9c99a6" size="5px">#${tran.txHash}</font></h1>
+	</div>
+	
+	<div class="row">
+	  <div class="col-md-1"></div>
+	  <div class="col-md-10">
+	  	<div>
+			<h3>Transaction Information</h3>
+		</div>
+		<div>
+			<table class="table">
+				<tr>
+					<td>TxHash:</td>
+					<td>${tran.txHash}</td>
+				</tr>
+				<tr>
+					<td>TxReceipt Status:</td>
+					<td>${tran.txReceiptStatus!}</td>
+				</tr>
+				<tr>
+					<td>Block Height:</td>
+					<td>${tran.block}</td>
+				</tr>
+				<tr>
+					<td>From:</td>
+					<td>${tran.from}</td>
+				</tr>
+				<tr>
+					<td>To:</td>
+					<td>${tran.to}</td>
+				</tr>
+				<tr>
+					<td>Value:</td>
+					<td>${tran.value}</td>
+				</tr>
+				<tr>
+					<td>Gas Limit:</td>
+					<td>${tran.gasLimit}</td>
+				</tr>
+				<tr>
+					<td>Gas Price:</td>
+					<td>${tran.gasPrice}</td>
+				</tr>
+				<tr>
+					<td>Gas Used By Txn:</td>
+					<td>${tran.gasUsed}</td>
+				</tr>
+				<tr>
+					<td>Actual Tx Cost:</td>
+					<td>${tran.txFree}</td>
+				</tr>
+				<tr>
+					<td>Nonce:</td>
+					<td>${tran.nonce}</td>
+				</tr>
+				<tr>
+					<td>Input Data:</td>
+					<td><textarea rows="3" cols="160">${tran.inputData}</textarea></td>
+				</tr>
+			</table>
+		</div>
+	  </div>
+	  <div class="col-md-1"></div>
+	</div>
+</body>
+</html>

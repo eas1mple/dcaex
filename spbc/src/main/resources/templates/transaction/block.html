@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+<#include '/copyright/common/header.html'>
+<script type="text/javascript">
+	$(function(){
+		$("#button").click(function(){
+			var searchValue=$("#searchValue").val();
+			location = "datasource/selectBySingle?searchValue="+searchValue;
+		});
+	
+	});
+</script>
+</head>
+<body>
+	<div>
+		<nav class="navbar navbar-default" role="navigation">
+		  <div class="navbar-header" style="margin-right:420px">
+		    <a class="navbar-brand" href="#">DCAex</a>
+		  </div>
+		  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		    <form class="navbar-form navbar-left" role="search" id="dataForm">
+		      <div class="form-group">
+		        <input type="text" style="width:310px" class="form-control" placeholder="Search by Address/Txhash/Block/Token/Ens" id="searchValue" name="searchValue">
+		      </div>
+		      <button type="submit" class="btn btn-default" id="button">查询</button>
+		    </form>
+		  </div>
+		</nav>
+	</div>
+	
+	<div style="background-color:#fdfdfd;height:80px">
+		<h1 style="margin-left:110px;line-height: 80px"><font color="#777777">Block</font> <font color="#9c99a6">#${block.height}</font></h1>
+	</div>
+	
+	<div class="row">
+	  <div class="col-md-1"></div>
+	  <div class="col-md-10">
+	  	<div>
+			<h3>Block Information</h3>
+		</div>
+		<div>
+			<table class="table">
+				<tr>
+					<td>Height:</td>
+					<td>${block.height}</td>
+				</tr>
+				<tr>
+					<td>TimeStamp:</td>
+					<td>${block.height}</td>
+				</tr>
+				<tr>
+					<td>Transactions:</td>
+					<td>${block.transaction}</td>
+				</tr>
+				<tr>
+					<td>Hash:</td>
+					<td>${block.hashValue}</td>
+				</tr>
+				<tr>
+					<td>Parent Hash:</td>
+					<td>${block.parentHash}</td>
+				</tr>
+				<tr>
+					<td>Sha3Uncles:</td>
+					<td>${block.sha3Uncles}</td>
+				</tr>
+				<tr>
+					<td>Miner By:</td>
+					<td>${block.miner}</td>
+				</tr>
+				<tr>
+					<td>Difficulty:</td>
+					<td>${block.difficulty}</td>
+				</tr>
+				<tr>
+					<td>Total Difficulty:</td>
+					<td>${block.totalDifficulty}</td>
+				</tr>
+				<tr>
+					<td>Size:</td>
+					<td>${block.size}</td>
+				</tr>
+				<tr>
+					<td>Gas Used:</td>
+					<td>${block.gasUsed}</td>
+				</tr>
+				<tr>
+					<td>Gas Limit:</td>
+					<td>${block.gasLimit}</td>
+				</tr>
+				<tr>
+					<td>Nonce:</td>
+					<td>${block.nonce}</td>
+				</tr>
+				<tr>
+					<td>Extra Data:</td>
+					<td>${block.extraData}</td>
+				</tr>
+			</table>
+		</div>
+	  </div>
+	  <div class="col-md-1"></div>
+	</div>
+</body>
+</html>

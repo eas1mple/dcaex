@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<#include 'copyright/common/header.html'>
+<body>
+	<h3>Blocks</h3>
+	<table>
+		<#list blist as block>
+		<div class="row">
+		  <div class="col-md-4" style="background-color: grey">
+		  	<ul style="list-style-type:none;margin: 0px;padding:5px">
+				<li><a href="selectByBlockNumber?searchValue=${block.height}"><font color="white">Block:${block.height}</font></a></li>
+				<li>${block.timeStamp} ago</li>
+			</ul>
+		  </div>
+		  <div class="col-md-4">
+	  		<ul style="list-style-type:none;margin: 0px;padding:5px">
+				<li>Mined By ${block.miner}</li>
+				<li><a>${block.transaction}</a>txns</li>
+				<li>Block Reward  Ether</li>
+			</ul>
+		  </div>
+		  <div class="col-md-4"></div>
+		</div>
+		</#list>
+	</table>
+</body>
+</html>

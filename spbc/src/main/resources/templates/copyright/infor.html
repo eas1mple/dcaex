@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<#include 'common/header.html'>
+</head>
+<script type="text/javascript">
+	$(function(){
+ 		$("#button").click(function(){
+ 			var information = $("#searchValue").val();
+ 			location = "/dcaex/author/queryInformation?information="+information;
+/*  			$.ajax({
+ 				url:"/dcaex/author/queryInformation",
+ 				data:{"information":information},
+ 				type:"POST",
+ 				dataType:"text",
+ 				success:function(msg){
+ 					if(msg=="ok"){
+ 						location="/templates/copyright/crinfor.html";
+ 					}
+ 				}
+ 			}) */
+ 		});
+		//$("#core").load("toCrinfor");
+	});
+</script>
+<body>
+	<div class="row">
+	  <div class="col-md-3"></div>
+	  <div class="col-md-6">
+	  	<div style="margin-top:240px">
+	  		<div class="col-xs-10">
+			    <input type="text" class="form-control input-lg" placeholder="请输入版权信息" id="searchValue">
+			</div>
+			<div>
+		  		<button type="button" class="btn btn-primary btn-lg" style="width: 80px" id="button">查询</button>
+		  	</div>
+	  	</div>
+	  </div>
+	  <div class="col-md-3"></div>
+	</div>
+</body>
+</html>

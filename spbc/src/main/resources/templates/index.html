@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<#include 'copyright/common/header.html'>
+<script type="text/javascript">
+	$(function(){
+		$("#block").load("selectBlockList");
+		$("#transaction").load("selectTransactionsList");
+		
+		$("#submitButton").click(function(){
+			alert("=============");
+			var searchValue=$("#searchValue").value;
+			window.location.href="datasource/selectBySingle?searchValue="+searchValue;
+		});
+	
+	});
+</script>
+<body>
+	<div>
+		<nav class="navbar navbar-default" role="navigation">
+		  <div class="navbar-header" style="margin-right:420px">
+		    <a class="navbar-brand" href="#">DCAex</a>
+		  </div>
+		  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		    <form class="navbar-form navbar-left" role="search" id="dataForm">
+		      <div class="form-group">
+		        <input type="text" style="width:310px" class="form-control" placeholder="Search by Address/Txhash/Block/Token/Ens" id="searchValue">
+		      </div>
+		      <button class="btn btn-default" id="submitButton">查询</button>
+		    </form>
+		  </div>
+		</nav>
+	</div>
+	<div>
+		<div class="row">
+		  <div class="col-md-1"></div>
+		  <div class="col-md-5">
+		  	<div id="block"></div>
+		  </div>
+		  <div class="col-md-5">
+		  	<div id="transaction"></div>
+		  </div>
+		  <div class="col-md-1"></div>
+		</div>
+	</div>
+</body>
+</html>

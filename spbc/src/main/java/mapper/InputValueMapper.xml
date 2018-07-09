@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcaex.spbc.dao.inputvalue.InputValueMapper" >
+
+    <insert id="insertInputValue" parameterType="author">
+        INSERT INTO tb_author(id,version,signature,author,country,idType,idNumber)
+        VALUES
+        <foreach collection="list" item="author" index="index" separator=",">
+            (#{author.id},#{author.version},#{author.data.signature},#{author.data.author},#{author.data.country},#{author.data.idType},#{author.data.idNumber})
+        </foreach>
+    </insert>
+
+    <insert id="insertCertificateInfo" parameterType="author">
+        INSERT INTO tb_certificateinfo(certificate_id,type,sn,work_id,author_id)
+        VALUES
+        <foreach collection="list" item="author" index="index" separator=",">
+            (#{author.data.certificateInfo.certificateInfoId},#{author.data.certificateInfo.type},#{author.data.certificateInfo.sn},#{author.data.workInfo.workInfoId},#{author.id})
+        </foreach>
+    </insert>
+
+    <insert id="insertFeaturesInfo" parameterType="author">
+        INSERT INTO tb_features(features_id,type,value,work_id)
+        VALUES
+        <foreach collection="list" item="author" index="index" separator=",">
+            (#{author.data.features.featuresId},#{author.data.features.type},#{author.data.features.value},#{author.data.workInfo.workInfoId})
+        </foreach>
+    </insert>
+
+    <insert id="insertStatus" parameterType="author">
+        INSERT INTO tb_status(status_id,status,message,work_id)
+        VALUES
+        <foreach collection="list" item="author" index="index" separator=",">
+            (#{author.data.status.statusId},#{author.data.status.status},#{author.data.status.message},#{author.data.workInfo.workInfoId})
+        </foreach>
+    </insert>
+
+    <insert id="insertWorkInfo" parameterType="author">
+        INSERT INTO tb_workinfo(workInfo_id,name,url,id,category,keywords,author_id)
+        VALUES
+        <foreach collection="list" item="author" index="index" separator=",">
+            (#{author.data.workInfo.workInfoId},#{author.data.workInfo.name},#{author.data.workInfo.url},#{author.data.workInfo.id},#{author.data.workInfo.category},#{author.data.workInfo.keywords},#{author.id})
+        </foreach>
+    </insert>
+   
+</mapper>

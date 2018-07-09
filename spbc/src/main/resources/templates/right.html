@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<#include 'copyright/common/header.html'>
+<body>
+
+	<h3>Transactions</h3>
+	<table>
+		<tr>
+			<td>
+				<#list tlist as transaction>
+					<ul style="list-style-type:none;margin: 0px;padding:5px">
+						<li>TX# <a href="selectByTxHash?searchValue=${transaction.txHash}">${transaction.txHash}</a></li>
+						<li>From <a href="selectByAddress?searchValue=${transaction.from}">${transaction.from}</a> To <a href="selectByAddress?searchValue=${transaction.to}">${transaction.to}</a></li>
+						<li>Amount ${transaction.value} Ether</li>
+					</ul>
+				</#list>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

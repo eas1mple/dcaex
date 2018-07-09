@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<#include 'common/header.html'>
+<script type="text/javascript">
+	$(function(){
+		$("#certificate").click(function(){
+			var certifi = this.value;
+			location = "selectDetailBySn?certifi="+certifi;
+		});
+	});
+</script>
+<body>
+<div>
+	<nav class="navbar navbar-default" role="navigation" style="margin-bottom:0px">
+	  <div class="navbar-header" style="margin-left:120px;margin-right:50px">
+	    <a class="navbar-brand" href="http://localhost:8080/dcaex/author/toSearch">首页</a>
+	  </div>
+	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	    <ul class="nav navbar-nav">
+	      <li class="active"><a href="#">版权信息</a></li>
+	    </ul>
+	  </div>
+	</nav>
+</div>
+	
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+  	<div>
+		<table class="table table-bordered">
+			<#list page.results as infor>
+			<tr style="background-color: #cec2f6">
+				<td style="width:100px">signature</td>
+				<td>作者姓名</td>
+				<td>国家</td>
+				<td>证件类型</td>
+				<td>证件号码</td>
+				<td>查看详情</td>
+			</tr>
+			<tr>	
+				<td>${infor.data.signature!}</td>
+				<td>${infor.data.author!}</td>
+				<td>${infor.data.country!}</td>
+				<td>${infor.data.idType!}</td>
+				<td>${infor.data.idNumber!}</td>
+				<td><button id="certificate" value="${infor.data.author}">查询详情</button></td>
+			</tr>
+			</#list>
+		</table>
+	</div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+</body>
+</html>

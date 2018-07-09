@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<#include 'common/header.html'>
+<script type="text/javascript">
+ 	$(function(){
+ 		$("#button").click(function(){
+ 			$.ajax({
+ 				url:"dcaex/author/queryInformation",
+ 				data:$("#searchForm").serialize(),
+ 				type:"POST",
+ 				dataType:"text",
+ 				success:function(msg){
+ 					$("#core").load("dcaex/author/toCrinfor");
+ 				}
+ 			});
+ 		});
+	});
+</script>
+<body>
+	<div>
+		<nav class="navbar navbar-default" role="navigation">
+		  <div class="navbar-header" style="margin-right:420px">
+		    <a class="navbar-brand" href="#">DCAex</a>
+		  </div>
+		  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		    <form class="navbar-form navbar-left" role="search" id="searchForm">
+		      <div class="form-group">
+		        <input type="text" class="form-control" placeholder="请输入版权信息" id="searchValue" name="information">
+		      </div>
+		      <button class="btn btn-default" id="button">查询</button>
+		    </form>
+		  </div>
+		</nav>
+	</div>
+	<div id="core"></div>
+</body>
+</html>
