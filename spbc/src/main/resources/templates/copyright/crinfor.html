@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>版权详情</title>
 </head>
 <#include 'common/header.html'>
 <body>
@@ -46,52 +46,24 @@
 			</tr>
 			<tr>
 				<td>作品名称</td>
-				<td>百望山上</td>
+				<td>${author.data.workInfo.name}</td>
 			</tr>
 			<tr>
 				<td>作品编号</td>
-				<td>OO-CmQdAAAE</td>
+				<td>${author.data.workInfo.id}</td>
 			</tr>
 			<tr>
 				<td>作品分类</td>
-				<td>自然风景</td>
+				<td>${author.data.workInfo.category}</td>
 			</tr>
 			<tr>
 				<td>证书类型</td>
-				<td>DCI数字版权证书</td>
+				<td>${author.data.certificateInfo.type}</td>
 			</tr>
 			<tr>
 				<td>sn</td>
-				<td>C20180000000000000066859600044250</td>
+				<td>${author.data.certificateInfo.sn}</td>
 			</tr>
-<!-- 			<tr>
-				<td>作品状态</td>
-				<td>${author.data.status.status}</td>
-			</tr>
-			<tr>
-				<td>状态信息</td>
-				<td>${author.data.status.message}</td>
-			</tr>
-			<tr>
-				<td>features类型</td>
-				<td>${author.data.features.type}</td>
-			</tr>
-			<tr>
-				<td>features值</td>
-				<td>${author.data.features.value}</td>
-			</tr> -->
-<!-- 			<tr style="border-bottom: 1px solid #dddddd">
-				<td style="margin:0px">
-					<ul class="pagination" style="margin:0px">
-					  <li><a href="${page.url}?information=${page.params.information}&pageNo=${page.prePageNo}">&laquo;</a></li>
-					</ul>
-				</td>
-				<td style="text-align:right;margin:0px">
-					<ul class="pagination" style="margin:0px">
-						  <li><a href="${page.url}?information=${page.params.information}&pageNo=${page.nextPageNo}">&raquo;</a></li>
-					</ul>
-				</td>
-			</tr> -->
 		</table>
 	</div>
   </div>

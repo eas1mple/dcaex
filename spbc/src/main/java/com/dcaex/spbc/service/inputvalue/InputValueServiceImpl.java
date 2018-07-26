@@ -29,7 +29,6 @@ public class InputValueServiceImpl implements InputValueService {
             au.getData().getFeatures().setFeaturesId(UUID.next());
             au.getData().getWorkInfo().setWorkInfoId(UUID.next());
         	if (au!=null) {
-				
         		elasearchMapper.save(au);
 			}
         }

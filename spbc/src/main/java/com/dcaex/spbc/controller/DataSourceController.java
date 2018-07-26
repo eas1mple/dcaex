@@ -21,6 +21,12 @@ public class DataSourceController {
 	@Autowired
 	private DataSourceService dataSourceService;
 
+	@RequestMapping("testMain")
+	public String testMain(){
+		return "main";
+	}
+	
+	
 	/**
 	 * 跳转到区块链列表数据
 	 * @return
@@ -30,7 +36,6 @@ public class DataSourceController {
 	public String selectDataIndex(Model model) throws IOException{
 		
 		return "index";
-		
 	}
 	
 	/**
@@ -55,6 +60,12 @@ public class DataSourceController {
 		List<Transactions> tlist = TransactionOperate.selectTransactionList();
 		model.addAttribute("tlist", tlist);
 		return "right";
+	}
+	
+	@RequestMapping("selectSingleBlock")
+	public String selectEchartData(Model model) throws IOException{
+		
+		return "";
 	}
 	
 	/**

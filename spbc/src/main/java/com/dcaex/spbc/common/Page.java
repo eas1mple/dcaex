@@ -1,107 +1,79 @@
 package com.dcaex.spbc.common;
 
-
-import java.util.HashMap;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
-public class Page<T> {
-	private int pageNo = 1;//页码，默认是第一页
-    private int pageSize =10;//每页显示的记录数，默认是10
-    private int totalRecord;//总记录数
-    private int totalPage;//总页数
-    private List<T> results;//对应的当前页记录
-    
-    
-    private int prePageNo;//上一页页码
-    
-    private int nextPageNo;//下一页码
-    
-    
-    
-    
-    //
-    public int getPrePageNo() {
-    	
-    	if(pageNo==1){
-    		this.prePageNo=1;
-    	}else{
-    		this.prePageNo=pageNo-1;
-    	}
-    	
-		return prePageNo;
-	}
-	public void setPrePageNo(int prePageNo) {
-		this.prePageNo = prePageNo;
-	}
-	public int getNextPageNo() {
+public class Page<T> implements Serializable {
+
+		/**
+		 * 序列化id
+		 */
+		private static final long serialVersionUID = 7569566861340703188L;
+		private int pageSize;//每页显示多少条记录
+		private int currentPage;//当前第几页数据
+		private int totalRecord;//一共多少条记录
+		private List<T> dataList;//要显示的数据
+		private int totalPage;//总页数
 		
-		if(pageNo==this.getTotalPage()){
-    		this.nextPageNo=this.getTotalPage();
-    	}else{
-    		this.nextPageNo=pageNo+1;
-    	}
-		
-		return nextPageNo;
-	}
-	public void setNextPageNo(int nextPageNo) {
-		this.nextPageNo = nextPageNo;
-	}
-	private String url;//分页的路径
-    
-    
-    public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	
-	private Map<String, Object> params = new HashMap<String, Object>();//其他的参数我们把它分装成一个Map对象
-	
-    public int getPageNo() {
-		return pageNo;
-	}
-	public void setPageNo(int pageNo) {
-		this.pageNo = pageNo;
-	}
-	public int getPageSize() {
-		return pageSize;
-	}
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-	public int getTotalRecord() {
-		return totalRecord;
-	}
-	public void setTotalRecord(int totalRecord) {
-		this.totalRecord = totalRecord;
-	}
-	public int getTotalPage() {
-		
-		if(totalRecord%pageSize==0){
-			this.totalPage=totalRecord/pageSize;
-		}else{
-			this.totalPage=(totalRecord/pageSize)+1;
+		public Page() {
+			super();
 		}
-
-		return totalPage;
-	}
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
-	}
-	public List<T> getResults() {
-		return results;
-	}
-	public void setResults(List<T> results) {
-		this.results = results;
-	}
-	public Map<String, Object> getParams() {
-		return params;
-	}
-	public void setParams(Map<String, Object> params) {
-		this.params = params;
-	}
-	
-    
+		public Page(int pageSize, int currentPage, int totalRecord,
+				int totalPage,List<T> dataList) {
+			super();
+			this.pageSize = pageSize;
+			this.currentPage = currentPage;
+			this.totalRecord = totalRecord;
+			this.totalPage = totalPage;
+			this.dataList = dataList;
+		}
+		
+		public Page(int pageNum,int pageSize,List<T> sourceList){
+			if(sourceList.size() ==0 ||sourceList == null){
+				return;
+			}
+			//总记录条数
+			this.totalRecord = sourceList.size();
+			//每页显示多少条记录
+			this.pageSize = pageSize;
+			//获取总页数
+			this.totalPage = this.totalRecord /this.pageSize;
+			if(this.totalRecord % this.pageSize != 0){
+				this.totalPage = this.totalPage +1;
+			}
+			//当前第几页数据
+			if(this.totalPage < pageNum){
+				this.currentPage = this.totalPage;
+			}else{
+				this.currentPage = pageNum;
+			}
+			
+			//起始索引
+			int fromIndex = this.pageSize*(this.currentPage-1);
+			//结束索引
+			int toIndex;
+			if(this.pageSize * this.currentPage >this.totalRecord){
+				toIndex = this.totalRecord;
+			}else{
+				toIndex = this.pageSize * this.currentPage;
+			}
+			this.dataList = sourceList.subList(fromIndex, toIndex);
+		}
+		
+		public int getPageSize() {
+			return pageSize;
+		}
+		public int getCurrentPage() {
+			return currentPage;
+		}
+		public int getTotalRecord() {
+			return totalRecord;
+		}
+		public List<T> getDataList() {
+			return dataList;
+		}
+		public int getTotalPage() {
+			return totalPage;
+		}
+		
 }

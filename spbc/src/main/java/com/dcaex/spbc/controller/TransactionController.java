@@ -47,11 +47,11 @@ public class TransactionController {
         return jObject.toString();
     }
 
-    @RequestMapping(value = "/test", method = {RequestMethod.POST,RequestMethod.GET})
-    public String createTransaction() {
-
-        return "test";
-    }
+//    @RequestMapping(value = "/test", method = {RequestMethod.POST,RequestMethod.GET})
+//    public String createTransaction() {
+//
+//        return "test";
+//    }
 	
 	
 }

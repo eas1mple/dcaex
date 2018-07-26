@@ -1,5 +1,8 @@
 package com.dcaex.spbc.web3j;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
+
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.PersonalUnlockAccount;
@@ -13,9 +16,16 @@ import org.web3j.utils.Numeric;
 
 import com.dcaex.spbc.dto.Author;
 import com.dcaex.spbc.dto.Block;
+import com.dcaex.spbc.dto.CertificateInfo;
+import com.dcaex.spbc.dto.Data;
+import com.dcaex.spbc.dto.Features;
+import com.dcaex.spbc.dto.Status;
 import com.dcaex.spbc.dto.Transactions;
+import com.dcaex.spbc.dto.WorkInfo;
 import com.dcaex.spbc.utils.GsonUtil;
 import com.dcaex.spbc.utils.StringUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -23,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -157,9 +168,9 @@ public class TransactionOperate {
      * @return
      * @throws IOException
      */
-    @SuppressWarnings("rawtypes")
+	@SuppressWarnings("rawtypes")
 	public static List<Author> getInputValue() throws IOException{
-        List<Author> list = new ArrayList<>();
+        List<Author> list = new ArrayList<Author>();
         Admin admin =Admin.build(new HttpService(Ethurl));
         BigInteger bi = web3.ethBlockNumber().send().getBlockNumber();//查询块的高度
         BigInteger j = BigInteger.valueOf(1);
@@ -181,18 +192,93 @@ public class TransactionOperate {
                     EthTransaction ethTransaction = request1.send();
                     org.web3j.protocol.core.methods.response.Transaction result = ethTransaction.getResult();
 
-                    
                     String inputData = result.getInput().substring(2);
                     String inputValue = StringUtils.hexStringToString(inputData);
+                    Author author = new Author();
+                    Status status = new Status();
+                    WorkInfo workInfo = new WorkInfo();
+                    Data data = new Data();
+                    Features features = new Features();
+                    CertificateInfo certificateInfo = new CertificateInfo();
+                    data.setStatus(status);
+                    data.setWorkInfo(workInfo);
+                    data.setCertificateInfo(certificateInfo);
+                    data.setFeatures(features);
+                    author.setData(data);
+//                    try {
+//                    	author = GsonUtil.parseJsonWithGson(inputValue, Author.class);
+//                    } catch (Exception e) {
+//                    	System.out.println(author);
+//                    	System.out.println("此数据不完整,将不保存该数据!!!");
+//                    }
 
-                    Author author = null;
-                    
-                    try {
-                    	author = GsonUtil.parseJsonWithGson(inputValue, Author.class);
-					} catch (Exception e) {
-						e.printStackTrace();
+            		JSONObject json = JSONObject.fromObject(inputValue);
+            		Gson gson = new Gson();
+            		// 使用谷歌的gson将json转换为map类型    TypeToken<Map<String, String>>()  此格式可以以自己的需求进行调整
+            		Map<String, Object> map = gson.fromJson(json.toString(), new TypeToken<Map<String, Object>>(){}.getType());
+            		
+            		System.out.println(((Map) map.get("data")).get("author"));
+            		System.out.println(map.get("version"));
+            		
+            		if (map!=null && !map.isEmpty()) {
+            			if (map.containsKey("version")) {
+							author.setVersion(map.get("version").toString());
+						}
+            			if (map.get("data")!=null && !((Map) map.get("data")).isEmpty()) {
+            				if (((Map) map.get("data")).containsKey("author")) {
+            					author.getData().setAuthor(((Map) map.get("data")).get("author").toString());
+							}
+            				if (((Map) map.get("data")).containsKey("signature")) {
+            					author.getData().setAuthor(((Map) map.get("data")).get("signature").toString());
+							}
+            				if (((Map) map.get("data")).containsKey("country")) {
+            					author.getData().setAuthor(((Map) map.get("data")).get("country").toString());
+							}
+            				if (((Map) map.get("data")).containsKey("idType")) {
+            					author.getData().setAuthor(((Map) map.get("data")).get("idType").toString());
+							}
+            				if (((Map) map.get("data")).containsKey("idNumber")) {
+            					author.getData().setAuthor(((Map) map.get("data")).get("idNumber").toString());
+							}
+            				
+            				if (((Map) ((Map) map.get("data")).get("status")).containsKey("status")) {
+								author.getData().getStatus().setStatus(((Map) ((Map) map.get("data")).get("status")).get("status").toString());
+							}
+            				if (((Map) ((Map) map.get("data")).get("status")).containsKey("message")) {
+								author.getData().getStatus().setStatus(((Map) ((Map) map.get("data")).get("status")).get("message").toString());
+							}
+            				
+            				if (((Map) ((Map) map.get("data")).get("workInfo")).containsKey("name")) {
+								author.getData().getWorkInfo().setName(((Map) ((Map) map.get("data")).get("workInfo")).get("name").toString());
+							}
+            				if (((Map) ((Map) map.get("data")).get("workInfo")).containsKey("id")) {
+								author.getData().getWorkInfo().setName(((Map) ((Map) map.get("data")).get("workInfo")).get("id").toString());
+							}
+            				if (((Map) ((Map) map.get("data")).get("workInfo")).containsKey("url")) {
+								author.getData().getWorkInfo().setName(((Map) ((Map) map.get("data")).get("workInfo")).get("url").toString());
+							}
+            				if (((Map) ((Map) map.get("data")).get("workInfo")).containsKey("category")) {
+								author.getData().getWorkInfo().setName(((Map) ((Map) map.get("data")).get("workInfo")).get("category").toString());
+							}
+            				if (((Map) ((Map) map.get("data")).get("workInfo")).containsKey("keywords")) {
+								author.getData().getWorkInfo().setName(((Map) ((Map) map.get("data")).get("workInfo")).get("keywords").toString());
+							}
+            				
+            				if (((Map) ((Map) map.get("data")).get("certificateInfo")).containsKey("type")) {
+								author.getData().getWorkInfo().setName(((Map) ((Map) map.get("data")).get("certificateInfo")).get("type").toString());
+							}
+            				if (((Map) ((Map) map.get("data")).get("certificateInfo")).containsKey("sn")) {
+								author.getData().getWorkInfo().setName(((Map) ((Map) map.get("data")).get("certificateInfo")).get("sn").toString());
+							}
+            				
+            				if (((Map) ((Map) map.get("data")).get("features")).containsKey("type")) {
+								author.getData().getWorkInfo().setName(((Map) ((Map) map.get("data")).get("features")).get("type").toString());
+							}
+            				if (((Map) ((Map) map.get("data")).get("features")).containsKey("value")) {
+								author.getData().getWorkInfo().setName(((Map) ((Map) map.get("data")).get("features")).get("value").toString());
+							}
+						}
 					}
-                    
                     list.add(author);
                 }
             }
@@ -219,7 +305,6 @@ public class TransactionOperate {
 
             List<EthBlock.TransactionResult> transactions = block.getTransactions();//查询块里面的交易
             
-
             if (transactions.size() > 0){
             	
             	Block blo = new Block();
@@ -390,8 +475,6 @@ public class TransactionOperate {
         
         tran.setGasLimit(block.getGasLimit().toString());
         
-        
-        
 		return tran;
     	
 	}
@@ -418,11 +501,6 @@ public class TransactionOperate {
 
             List<EthBlock.TransactionResult> transactions = block.getTransactions();//查询块里面的交易
             
-//            for (TransactionResult transactionResult : transactions) {
-//            	EthGetTransactionReceipt ethTransaction = admin.ethGetTransactionReceipt(transactionResult.toString()).send();
-//            	TransactionReceipt result = ethTransaction.getResult();
-//			}
-            
             if (transactions.size() > 0){
             	
                 BigInteger m = BigInteger.valueOf(transactions.size());
@@ -435,6 +513,7 @@ public class TransactionOperate {
                     Request<?, EthTransaction> request1 = admin.ethGetTransactionByBlockNumberAndIndex(dbp, n);
                     EthTransaction ethTransaction = request1.send();
                     org.web3j.protocol.core.methods.response.Transaction result = ethTransaction.getResult();
+                    
                     
                     if (result.getFrom().equals(searchValue)) {
                     	
@@ -465,7 +544,47 @@ public class TransactionOperate {
 		
 		return tlist;
 	}
+	public static List<String> selectEchartData() {
+		List<String> list = new ArrayList<String>();
+		
+		return null;
+	}
+	
+	/**
+	 * 根据交易Hash查询所有信息
+	 * @param str
+	 * @return
+	 * @throws IOException 
+	 */
+	@SuppressWarnings({ "rawtypes" })
+	public static Map<String, Object> insertAllData(String str) throws IOException {
+		Admin admin =Admin.build(new HttpService(Ethurl));
+		Transactions trans = new Transactions();
+		EthGetTransactionReceipt ethTransaction = admin.ethGetTransactionReceipt(str).send();
+		TransactionReceipt result = ethTransaction.getResult();
+		
+		BigInteger bn= result.getBlockNumber();
+		DefaultBlockParameter dbp = new DefaultBlockParameterNumber(bn);
+        Request<?, EthBlock> request = web3.ethGetBlockByNumber(dbp, true);
+        EthBlock ethBlock = request.send();
+        EthBlock.Block block = ethBlock.getBlock();
+		
+		trans.setBlock(result.getBlockNumber().toString());
+		trans.setFrom(result.getFrom());
+		trans.setTxHash(result.getTransactionHash());
+		trans.setNonce(result.getTransactionIndex().toString());
+		trans.setGasUsed(result.getGasUsedRaw());
+		trans.setTxReceiptStatus(result.getStatus());
+		
+		List<TransactionResult> transactions = block.getTransactions();
+        Request<?, EthTransaction> res = admin.ethGetTransactionByBlockNumberAndIndex(dbp,result.getTransactionIndex());
+		EthTransaction ethTransaction2 = res.send();
+		org.web3j.protocol.core.methods.response.Transaction result2 = ethTransaction2.getResult();
+		
+		
+		
+		return null;
+	}
 
-    
 
 }

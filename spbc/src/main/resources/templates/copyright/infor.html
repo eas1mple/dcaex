@@ -2,27 +2,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>版权查询</title>
 <#include 'common/header.html'>
 </head>
 <script type="text/javascript">
 	$(function(){
  		$("#button").click(function(){
  			var information = $("#searchValue").val();
- 			location = "/dcaex/author/queryInformation?information="+information;
-/*  			$.ajax({
- 				url:"/dcaex/author/queryInformation",
- 				data:{"information":information},
- 				type:"POST",
- 				dataType:"text",
- 				success:function(msg){
- 					if(msg=="ok"){
- 						location="/templates/copyright/crinfor.html";
- 					}
- 				}
- 			}) */
+ 			location = "/dcaex/author/queryFirstInformation?information="+information;
  		});
-		//$("#core").load("toCrinfor");
 	});
 </script>
 <body>

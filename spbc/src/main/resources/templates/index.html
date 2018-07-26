@@ -2,16 +2,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>交易信息</title>
 </head>
 <#include 'copyright/common/header.html'>
 <script type="text/javascript">
 	$(function(){
+		
 		$("#block").load("selectBlockList");
 		$("#transaction").load("selectTransactionsList");
+		$("#singleBlock").load("");
+		$("#echart").load("");
 		
 		$("#submitButton").click(function(){
-			alert("=============");
 			var searchValue=$("#searchValue").value;
 			window.location.href="datasource/selectBySingle?searchValue="+searchValue;
 		});
@@ -34,7 +36,21 @@
 		  </div>
 		</nav>
 	</div>
-	<div>
+	
+	<div class="middle">
+		<div class="row">
+		  <div class="col-md-1"></div>
+		  <div class="col-md-5">
+		  	<div id="singleBlock"></div>
+		  </div>
+		  <div class="col-md-5">
+		  	<div id="echart"></div>
+		  </div>
+		  <div class="col-md-1"></div>
+		</div>
+	</div>
+	
+	<div class="bottom">
 		<div class="row">
 		  <div class="col-md-1"></div>
 		  <div class="col-md-5">

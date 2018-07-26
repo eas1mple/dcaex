@@ -9,7 +9,6 @@ import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dcaex.spbc.common.Page;
 import com.dcaex.spbc.dao.elasearch.ElasearchMapper;
 import com.dcaex.spbc.dto.Author;
 
@@ -19,40 +18,18 @@ public class ElasearchServiceImpl implements ElasearchService{
 	@Autowired
 	private ElasearchMapper elasearchMapper;
 
-	@Override
-	public Page<Author> queryInformation(Page<Author> page, String information) {
-      QueryStringQueryBuilder qsqb = new QueryStringQueryBuilder(information);
-      Iterable<Author> search = elasearchMapper.search(qsqb);
-      Iterator<Author> iterator = search.iterator();
-      List<Author> list = new ArrayList<Author>();
-      while (iterator.hasNext()){
-          list.add(iterator.next());
-      }
-      page.setTotalRecord(list.size());
-	 	int i = (page.getPageNo()-1)*page.getPageSize();
-	 	List<Author> listAuthor = new ArrayList<Author>();
-	 	for (; i <page.getPageNo()*page.getPageSize();i++) {
-	 		if (i<list.size()) {
-				
-	 			listAuthor.add(list.get(i));
-			}
-	 	}
-	 	page.setResults(listAuthor);
-		return page;
-	}
-	
-//	@SuppressWarnings("rawtypes")
 //	@Override
-//	public List<Author> queryInformation(String information) {
-//        QueryStringQueryBuilder qsqb = new QueryStringQueryBuilder(information);
-//        Iterable search = elasearchMapper.search(qsqb);
-//        Iterator iterator = search.iterator();
-//        List<Author> list = new ArrayList<Author>();
-//        while (iterator.hasNext()){
-//            list.add((Author) iterator.next());
-//        }
-//        return list;
+//	public Page<Author> queryInformation(Page<Author> page, String information) {
+//      QueryStringQueryBuilder qsqb = new QueryStringQueryBuilder(information);
+//      Iterable<Author> search = elasearchMapper.search(qsqb);
+//      Iterator<Author> iterator = search.iterator();
+//      List<Author> list = new ArrayList<Author>();
+//      while (iterator.hasNext()){
+//          list.add(iterator.next());
+//      }
+//		return page;
 //	}
+	
 
 	@SuppressWarnings({ "rawtypes" })
 	@Override

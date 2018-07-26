@@ -3,16 +3,62 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Insert title here</title>
+<title>版权展示</title>
 </head>
 <#include 'common/header.html'>
 <script type="text/javascript">
-	$(function(){
-		$("#certificate").click(function(){
-			var certifi = this.value;
-			location = "selectDetailBySn?certifi="+certifi;
-		});
+$(function(){
+	$(".certificate").click(function(){
+		var certifi = this.value;
+		location = "selectDetailBySn?certifi="+certifi;
 	});
+});
+</script>
+<script type="text/javascript">
+// 当前第几页数据
+var currentPage = ${page.currentPage};
+// 总页数
+var totalPage = ${page.totalPage};
+// 首页
+function firstPage(){
+	if(currentPage == 1){
+		alert("已经是第一页数据");
+		return false;
+	}else{
+		location="http://localhost:8080/dcaex/author/queryInformation?pageNum=1";
+		return true;
+	}
+}
+// 下一页
+function nextPage(){
+	if(currentPage == totalPage){
+		alert("已经是最后一页数据");
+		return false;
+	}else{
+		location="http://localhost:8080/dcaex/author/queryInformation?pageNum="+ (currentPage+1);
+		return true;
+	}
+}
+// 上一页
+function previousPage(){
+	if(currentPage == 1){
+		alert("已经是第一页数据");
+		return false;
+	}else{
+		location="http://localhost:8080/dcaex/author/queryInformation?pageNum="+ (currentPage-1);
+		return true;
+	}
+}
+// 尾页
+function lastPage(){
+	if(currentPage == totalPage){
+		alert("已经是最后一页数据");
+		return false;
+	}else{
+		location="http://localhost:8080/dcaex/author/queryInformation?pageNum=${page.totalPage}";
+		return true;
+	}
+}
 </script>
 <body>
 <div>
@@ -33,7 +79,6 @@
   <div class="col-md-10">
   	<div>
 		<table class="table table-bordered">
-			<#list page.results as infor>
 			<tr style="background-color: #cec2f6">
 				<td style="width:100px">signature</td>
 				<td>作者姓名</td>
@@ -42,15 +87,27 @@
 				<td>证件号码</td>
 				<td>查看详情</td>
 			</tr>
-			<tr>	
+			<#list page.dataList as infor>
+			<tr>
 				<td>${infor.data.signature!}</td>
 				<td>${infor.data.author!}</td>
 				<td>${infor.data.country!}</td>
 				<td>${infor.data.idType!}</td>
 				<td>${infor.data.idNumber!}</td>
-				<td><button id="certificate" value="${infor.data.author}">查询详情</button></td>
+				<td><button class="certificate" value="${infor.data.certificateInfo.sn}">查询详情</button></td>
 			</tr>
 			</#list>
+			<tr>
+				<td colspan="6" style="text-align:right">
+					共&nbsp;${page.totalRecord }&nbsp;条记录  &nbsp;&nbsp;&nbsp;
+					共&nbsp;${page.totalPage }&nbsp;页 &nbsp;&nbsp;&nbsp;
+					当前第&nbsp;${page.currentPage }&nbsp;页  &nbsp;&nbsp;&nbsp;
+					<a href="#" onclick="firstPage()">首页</a> &nbsp;&nbsp;&nbsp;
+					<a href="#" onclick="nextPage()">下一页</a> &nbsp;&nbsp;&nbsp;  
+					<a href="#" onclick="previousPage()">上一页</a> &nbsp;&nbsp;&nbsp; 
+					<a href="#" onclick="lastPage()">尾页</a> &nbsp;&nbsp;&nbsp;
+				</td>
+			</tr>
 		</table>
 	</div>
   </div>

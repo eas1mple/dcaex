@@ -2,6 +2,7 @@ package com.dcaex.spbc.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +22,8 @@ public class InputValueController {
     @Autowired
     private InputValueService dataSourceService;
 
-    @ResponseBody
+    @SuppressWarnings("rawtypes")
+	@ResponseBody
     @RequestMapping(value = "selectInputValue", method = RequestMethod.POST)
     public String selectInputValue(HttpServletResponse response) throws IOException {
     	List<Author> tranInfor = TransactionOperate.getInputValue();
